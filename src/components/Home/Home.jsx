@@ -1,30 +1,16 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import "./Home.css";
+import React, { useState } from "react";
 
-export default function Home({ data }) {
-  const {
-    topbar,
-    header,
-    hero,
-    featureStrip,
-    flashSale,
-    categories,
-    newArrivals,
-    bestSellers,
-    footer,
-  } = data;
-
-  const [activeNav, setActiveNav] = useState("Home");
+const Home = ({ data }) => {
+  const [active, setActive] = useState(0);
 
   return (
     <div className="home">
       <div className="topbar">
         <div className="container topbarRow">
-          <div className="topbarLeft">{topbar.left}</div>
+          <div className="topbarLeft">{data.topbar.left}</div>
           <div className="topbarRight">
-            {topbar.right.map((item, index) => (
-              <button key={index} className="topbarBtn">
+            {data.topbar.right.map((item, index) => (
+              <button className="topbarBtn" key={index}>
                 {item}
               </button>
             ))}
@@ -34,19 +20,17 @@ export default function Home({ data }) {
 
       <div className="header">
         <div className="container headerRow">
-          <Link className="brand" to="/">
-            {header.brand}
-          </Link>
+          <div className="brand">{data.header.brand}</div>
 
           <div className="searchBox">
-            <button className="catBtn">{header.categories} ▾</button>
+            <button className="catBtn">{data.header.categories} ▾</button>
             <input className="searchInput" placeholder="Search products..." />
             <button className="searchBtn">Search</button>
           </div>
 
           <div className="icons">
-            {header.icons.map((item, index) => (
-              <button key={index} className="iconBtn">
+            {data.header.icons.map((item, index) => (
+              <button className="iconBtn" key={index}>
                 <img src={item.url} alt={item.label} />
               </button>
             ))}
@@ -54,47 +38,30 @@ export default function Home({ data }) {
         </div>
 
         <div className="nav">
-          {header.nav.map((item, index) =>
-            item === "Blog" ? (
-              <Link
-                key={index}
-                to="/blog"
-                className={`navLink ${activeNav === item ? "active" : ""}`}
-                onClick={() => setActiveNav(item)}
-              >
-                {item}
-              </Link>
-            ) : item === "Top Sellers" ? (
-              <Link
-                key={index}
-                to="/top-sellers"
-                className={`navLink ${activeNav === item ? "active" : ""}`}
-                onClick={() => setActiveNav(item)}
-              >
-                {item}
-              </Link>
-            ) : (
-              <Link
-                key={index}
-                to="/"
-                className={`navLink ${activeNav === item ? "active" : ""}`}
-                onClick={() => setActiveNav(item)}
-              >
-                {item}
-              </Link>
-            )
-          )}
+          {data.header.nav.map((item, index) => (
+            <button
+              key={index}
+              className={`navLink ${active === index ? "active" : ""}`}
+              onClick={() => setActive(index)}
+            >
+              {item}
+            </button>
+          ))}
         </div>
       </div>
 
-      <div className="hero" style={{ backgroundImage: `url(${hero.bg})` }}>
+      <div className="hero" style={{ backgroundImage: `url(${data.hero.bg})` }}>
         <div className="container heroBox">
-          <div className="heroMini">{hero.mini}</div>
-          <div className="heroTitle">{hero.title}</div>
-          <div className="heroDesc">{hero.desc}</div>
+          <div className="heroMini">{data.hero.mini}</div>
+          <div className="heroTitle">
+            {data.hero.titleLines.map((item, index) => (
+              <div key={index}>{item}</div>
+            ))}
+          </div>
+          <div className="heroDesc">{data.hero.desc}</div>
 
           <div className="heroBullets">
-            {hero.bullets.map((item, index) => (
+            {data.hero.bullets.map((item, index) => (
               <div key={index} className="heroBullet">
                 • {item}
               </div>
@@ -102,11 +69,8 @@ export default function Home({ data }) {
           </div>
 
           <div className="heroBtns">
-            {hero.buttons.map((item, index) => (
-              <button
-                key={index}
-                className={`btn ${index === 0 ? "teal" : "ghost"}`}
-              >
+            {data.hero.buttons.map((item, index) => (
+              <button key={index} className={`btn ${index === 0 ? "teal" : "ghost"}`}>
                 {item}
               </button>
             ))}
@@ -116,10 +80,10 @@ export default function Home({ data }) {
 
       <div className="features">
         <div className="container strip">
-          {featureStrip.map((item, index) => (
+          {data.strip.map((item, index) => (
             <div key={index} className={`stripItem ${item.theme}`}>
               <div className="stripIcon">{item.icon}</div>
-              <div>
+              <div className="stripText">
                 <div className="stripTitle">{item.title}</div>
                 <div className="stripSub">{item.sub}</div>
               </div>
@@ -131,11 +95,11 @@ export default function Home({ data }) {
       <div className="section">
         <div className="container">
           <div className="secTop">
-            <div className="secTitle">{flashSale.title}</div>
+            <div className="secTitle">{data.flashSale.title}</div>
           </div>
 
           <div className="grid grid3">
-            {flashSale.items.map((item, index) => (
+            {data.flashSale.items.map((item, index) => (
               <div key={index} className="card">
                 <div className="cardImg">
                   <img src={item.img} alt={item.title} />
@@ -158,17 +122,17 @@ export default function Home({ data }) {
       <div className="section light">
         <div className="container">
           <div className="secTop">
-            <div className="secTitle">{categories.title}</div>
+            <div className="secTitle">{data.categories.title}</div>
           </div>
 
           <div className="catGrid">
-            {categories.cards.map((item, index) => (
+            {data.categories.cards.map((item, index) => (
               <div key={index} className="catCard">
                 <div className="catTitle">{item.name}</div>
                 <div className="catList">
-                  {item.items.map((it, i) => (
-                    <div key={i} className="catLi">
-                      {it}
+                  {item.items.map((item2, index2) => (
+                    <div key={index2} className="catLi">
+                      {item2}
                     </div>
                   ))}
                 </div>
@@ -182,11 +146,11 @@ export default function Home({ data }) {
       <div className="section">
         <div className="container">
           <div className="secTop">
-            <div className="secTitle">{newArrivals.title}</div>
+            <div className="secTitle">{data.newArrivals.title}</div>
           </div>
 
           <div className="grid grid4">
-            {newArrivals.items.map((item, index) => (
+            {data.newArrivals.items.map((item, index) => (
               <div key={index} className="card">
                 <div className="cardImg">
                   <img src={item.img} alt={item.title} />
@@ -209,14 +173,11 @@ export default function Home({ data }) {
       <div className="section">
         <div className="container">
           <div className="secTop">
-            <div className="secTitle">{bestSellers.title}</div>
-            <Link className="miniLink" to="/top-sellers">
-              View all
-            </Link>
+            <div className="secTitle">{data.bestSellers.title}</div>
           </div>
 
           <div className="grid grid4">
-            {bestSellers.items.map((item, index) => (
+            {data.bestSellers.items.map((item, index) => (
               <div key={index} className="card">
                 <div className="cardImg">
                   <img src={item.img} alt={item.title} />
@@ -239,8 +200,8 @@ export default function Home({ data }) {
       <div className="footer">
         <div className="container footerRow">
           <div className="footerLeft">
-            <div className="footerBrand">{footer.brand}</div>
-            <div className="footerDesc">{footer.desc}</div>
+            <div className="footerBrand">{data.footer.brand}</div>
+            <div className="footerDesc">{data.footer.desc}</div>
 
             <div className="footerSubRow">
               <input className="footerInput" placeholder="Your email" />
@@ -248,7 +209,7 @@ export default function Home({ data }) {
             </div>
 
             <div className="socials">
-              {footer.socials.map((item, index) => (
+              {data.footer.socials.map((item, index) => (
                 <button key={index} className="socialBtn">
                   <img src={item.url} alt={item.label} />
                 </button>
@@ -257,12 +218,12 @@ export default function Home({ data }) {
           </div>
 
           <div className="footerCols">
-            {footer.cols.map((col, index) => (
+            {data.footer.cols.map((item, index) => (
               <div key={index} className="footerCol">
-                <div className="footerTitle">{col.title}</div>
-                {col.links.map((link, i) => (
-                  <a key={i} className="footerLink" href="#">
-                    {link}
+                <div className="footerTitle">{item.title}</div>
+                {item.links.map((item2, index2) => (
+                  <a key={index2} className="footerLink" href="#">
+                    {item2}
                   </a>
                 ))}
               </div>
@@ -271,9 +232,11 @@ export default function Home({ data }) {
         </div>
 
         <div className="container footerBottom">
-          <div className="footerCopy">{footer.copy}</div>
+          <div className="footerCopy">{data.footer.copy}</div>
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default Home;
