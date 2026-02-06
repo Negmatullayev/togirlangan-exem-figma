@@ -1,6 +1,7 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import Home from "./Home";
-import "./Home.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./Home.jsx";
+import Blog from "./Blog.jsx";
+import TopSellers from "./TopSellers.jsx";
 
 export default function App() {
   const data = {
@@ -92,189 +93,12 @@ export default function App() {
     },
   };
 
-  const { topbar, header, hero, featureStrip, flashSale, categories, newArrivals, bestSellers, footer } = data;
-
-  function HeaderBar() {
-    return (
-      <div className="headerWrap">
-        <div className="topbar">
-          <div className="container topbarRow">
-            <p className="topbarLeft">{topbar.left}</p>
-            <div className="topbarRight">
-              {topbar.right.map((item, index) => (
-                <button key={index} className="topbarBtn">{item}</button>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <header className="header">
-          <div className="container headerRow">
-            <Link className="brand" to="/">{header.brand}</Link>
-
-            <div className="searchBox">
-              <button className="catBtn">{header.categories} ▾</button>
-              <input placeholder="Search products..." />
-              <button className="searchBtn">Search</button>
-            </div>
-
-            <div className="icons">
-              {header.icons.map((item, index) => (
-                <button key={index} className="iconBtn">
-                  <img src={item.url} alt={item.label} />
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <nav className="nav">
-            {header.nav.map((item, index) => {
-              if (item === "Blog") {
-                return (
-                  <Link key={index} className="navLink" to="/blog">
-                    {item}
-                  </Link>
-                );
-              }
-              if (item === "Top Sellers") {
-                return (
-                  <Link key={index} className="navLink" to="/top-sellers">
-                    {item}
-                  </Link>
-                );
-              }
-              return (
-                <Link key={index} className="navLink" to="/">
-                  {item}
-                </Link>
-              );
-            })}
-          </nav>
-        </header>
-      </div>
-    );
-  }
-
-  function BlogPage() {
-    const blogPosts = [
-      { title: "How to choose a smart watch", date: "2026-01-12" },
-      { title: "Best headphones for gaming", date: "2026-01-20" },
-      { title: "Laptop buying guide 2026", date: "2026-02-01" },
-    ];
-
-    return (
-      <div className="page">
-        <HeaderBar />
-        <div className="container pageBody">
-          <h2 className="pageTitle">Blog</h2>
-          <div className="list">
-            {blogPosts.map((item, index) => (
-              <div key={index} className="listItem">
-                <div className="listTitle">{item.title}</div>
-                <div className="listSub">{item.date}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-        <FooterBar />
-      </div>
-    );
-  }
-
-  function TopSellersPage() {
-    return (
-      <div className="page">
-        <HeaderBar />
-        <div className="container pageBody">
-          <h2 className="pageTitle">{bestSellers.title}</h2>
-          <div className="grid grid4">
-            {bestSellers.items.map((item, index) => (
-              <div key={index} className="card">
-                <div className="cardImg">
-                  <img src={item.img} alt={item.title} />
-                  <span className="tag">{item.off}</span>
-                </div>
-                <div className="cardTitle">{item.title}</div>
-                <div className="cardRow">
-                  <div className="price">
-                    ${item.price} <span>${item.oldPrice}</span>
-                  </div>
-                  <div className="rate">⭐ {item.rating}</div>
-                </div>
-                <button className="btn dark">Add To Cart</button>
-              </div>
-            ))}
-          </div>
-        </div>
-        <FooterBar />
-      </div>
-    );
-  }
-
-  function FooterBar() {
-    return (
-      <footer className="footer">
-        <div className="container footerRow">
-          <div className="footerLeft">
-            <div className="footerBrand">{footer.brand}</div>
-            <div className="footerDesc">{footer.desc}</div>
-
-            <div className="footerSubRow">
-              <input className="footerInput" placeholder="Your email" />
-              <button className="footerBtn">Submit</button>
-            </div>
-
-            <div className="socials">
-              {footer.socials.map((item, index) => (
-                <button key={index} className="socialBtn">
-                  <img src={item.url} alt={item.label} />
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="footerCols">
-            {footer.cols.map((col, index) => (
-              <div key={index} className="footerCol">
-                <div className="footerTitle">{col.title}</div>
-                {col.links.map((link, i) => (
-                  <a key={i} className="footerLink" href="#">
-                    {link}
-                  </a>
-                ))}
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="container footerBottom">
-          <div className="footerCopy">{footer.copy}</div>
-        </div>
-      </footer>
-    );
-  }
-
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          path="/"
-          element={
-            <Home
-              topbar={topbar}
-              header={header}
-              hero={hero}
-              featureStrip={featureStrip}
-              flashSale={flashSale}
-              categories={categories}
-              newArrivals={newArrivals}
-              bestSellers={bestSellers}
-              footer={footer}
-            />
-          }
-        />
-        <Route path="/blog" element={<BlogPage />} />
-        <Route path="/top-sellers" element={<TopSellersPage />} />
+        <Route path="/" element={<Home data={data} />} />
+        <Route path="/blog" element={<Blog data={data} />} />
+        <Route path="/top-sellers" element={<TopSellers data={data} />} />
       </Routes>
     </BrowserRouter>
   );
