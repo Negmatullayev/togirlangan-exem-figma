@@ -9,7 +9,7 @@ import BlogSection from "./components/BlogSection.jsx";
 import Footer from "./components/Footer.jsx";
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeNav, setActiveNav] = useState(0);
 
   const topbar = {
     left: "Get 10% Off on Your First Order",
@@ -123,8 +123,8 @@ export default function App() {
         categories={header.categories}
         nav={header.nav}
         icons={header.icons}
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
+        activeNav={activeNav}
+        setActiveNav={setActiveNav}
       />
       <Hero
         mini={hero.mini}
@@ -135,49 +135,12 @@ export default function App() {
         bg={hero.bg}
       />
       <FeatureStrip items={strip} />
-
-      {activeTab === 0 ? (
-        <div>
-          <ProductSection title={flashSale.title} items={flashSale.items} cols={3} />
-          <CategorySection title={categories.title} cards={categories.cards} />
-        </div>
-      ) : null}
-
-      {activeTab === 1 ? (
-        <ProductSection title={newArrivals.title} items={newArrivals.items} cols={4} />
-      ) : null}
-
-      {activeTab === 2 ? (
-        <ProductSection title={topSellers.title} items={topSellers.items} cols={4} />
-      ) : null}
-
-      {activeTab === 3 ? (
-        <BlogSection title={blog.title} posts={blog.posts} />
-      ) : null}
-
-      {activeTab === 4 ? (
-        <div className="section">
-          <div className="container">
-            <div className="secTop">
-              <div className="secTitle">Contact Us</div>
-            </div>
-            <div className="contactBox">
-              <input className="contactInput" placeholder="Your name" />
-              <input className="contactInput" placeholder="Your email" />
-              <textarea className="contactArea" placeholder="Message"></textarea>
-              <button className="btn teal contactBtn">Send</button>
-            </div>
-          </div>
-        </div>
-      ) : null}
-
-      <Footer
-        brand={footer.brand}
-        desc={footer.desc}
-        cols={footer.cols}
-        socials={footer.socials}
-        copy={footer.copy}
-      />
+      <ProductSection title={flashSale.title} items={flashSale.items} cols={3} />
+      <CategorySection title={categories.title} cards={categories.cards} />
+      <ProductSection title={newArrivals.title} items={newArrivals.items} cols={4} />
+      <ProductSection title={topSellers.title} items={topSellers.items} cols={4} />
+      <BlogSection title={blog.title} posts={blog.posts} />
+      <Footer brand={footer.brand} desc={footer.desc} cols={footer.cols} socials={footer.socials} copy={footer.copy} />
     </div>
   );
 }
