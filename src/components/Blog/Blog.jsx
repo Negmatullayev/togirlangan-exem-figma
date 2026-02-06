@@ -4,12 +4,28 @@ export default function Blog({ data }) {
   const { topbar, header, footer } = data;
   const [activeNav, setActiveNav] = useState("Blog");
 
-  const posts = [
-    { title: "How to choose a smart watch", date: "2026-01-12" },
-    { title: "Best headphones for gaming", date: "2026-01-20" },
-    { title: "Laptop buying guide 2026", date: "2026-02-01" },
-    { title: "Top gadgets under $100", date: "2026-02-08" },
-  ];
+const posts = [
+  {
+    title: "How to choose a smart watch",
+    date: "2026-01-12",
+    img: "",
+  },
+  {
+    title: "Best headphones for gaming",
+    date: "2026-01-20",
+    img: "",
+  },
+  {
+    title: "Laptop buying guide 2026",
+    date: "2026-02-01",
+    img: "",
+  },
+  {
+    title: "Top 10 smartphones of 2026",
+    date: "2026-02-10",
+    img: "",
+  }
+];
 
   return (
     <div className="home">

@@ -287,10 +287,10 @@ export default function App() {
             />
           }
         />
-        <Route path="/blog" element={<BlogPage data={{ ...shared, blog }} />} />
+        <Route path="/blog" element={<BlogPage data={{ shared, blog }} />} />
         <Route
           path="/top-sellers"
-          element={<TopSellersPage data={{ ...shared, topSellers }} />}
+          element={<TopSellersPage data={{ shared, topSellers }} />}
         />
       </Routes>
 

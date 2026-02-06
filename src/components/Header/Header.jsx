@@ -5,9 +5,7 @@ const Header = ({ brand, categories, nav, icons, mobileOpen, setMobileOpen }) =>
   return (
     <div className="header">
       <div className="container headerRow">
-        <NavLink to="/" className="brand">
-          {brand}
-        </NavLink>
+        <div className="brand">{brand}</div>
 
         <div className="searchBox">
           <button className="catBtn">{categories} ▾</button>
