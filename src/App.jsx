@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import Topbar from "./components/Topbar.jsx";
-import Header from "./components/Header.jsx";
-import Hero from "./components/Hero.jsx";
-import FeatureStrip from "./components/FeatureStrip.jsx";
-import ProductSection from "./components/ProductSection.jsx";
-import CategorySection from "./components/CategorySection.jsx";
-import BlogSection from "./components/BlogSection.jsx";
-import Footer from "./components/Footer.jsx";
-
-export default function App() {
+import Topbar from "./components/Topbar/Topbar";
+import Header from "./components/Header/Header";
+import Hero from "./components/Hero/Hero";
+import Feature from "./components/Feature/Feature";
+import Product from "./components/Product/Product";
+import Productcard from "./components/Productcard/Productcard";
+import Category from "./components/Category/Category";
+import Blog from "./components/Blog/Blog";
+import BlogSection from "./components/BlogSection/BlogSection";
+import TopSellers from "./components/TopSellers/TopSellers";
+import Footer from "./components/Footer/Footer";export default function App() {
   const [activeNav, setActiveNav] = useState(0);
 
   const topbar = {
