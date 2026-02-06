@@ -2,42 +2,45 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Home.css";
 
-export default function Home({
-  topbar,
-  header,
-  hero,
-  featureStrip,
-  flashSale,
-  categories,
-  newArrivals,
-  bestSellers,
-  footer,
-}) {
+export default function Home({ data }) {
+  const {
+    topbar,
+    header,
+    hero,
+    featureStrip,
+    flashSale,
+    categories,
+    newArrivals,
+    bestSellers,
+    footer,
+  } = data;
+
   const [activeNav, setActiveNav] = useState("Home");
 
   return (
     <div className="home">
       <div className="topbar">
         <div className="container topbarRow">
-          <p className="topbarLeft">{topbar.left}</p>
+          <div className="topbarLeft">{topbar.left}</div>
           <div className="topbarRight">
             {topbar.right.map((item, index) => (
-              <button key={index} className="topbarBtn">{item}</button>
+              <button key={index} className="topbarBtn">
+                {item}
+              </button>
             ))}
           </div>
         </div>
       </div>
 
-      <header className="header">
+      <div className="header">
         <div className="container headerRow">
-          <div className="brandRow">
-            <div className="mark">⟂</div>
-            <Link className="brand" to="/">{header.brand}</Link>
-          </div>
+          <Link className="brand" to="/">
+            {header.brand}
+          </Link>
 
           <div className="searchBox">
             <button className="catBtn">{header.categories} ▾</button>
-            <input placeholder="Search products..." />
+            <input className="searchInput" placeholder="Search products..." />
             <button className="searchBtn">Search</button>
           </div>
 
@@ -50,33 +53,27 @@ export default function Home({
           </div>
         </div>
 
-        <nav className="nav">
-          {header.nav.map((item, index) => {
-            if (item === "Blog") {
-              return (
-                <Link
-                  key={index}
-                  to="/blog"
-                  className={`navLink ${activeNav === item ? "active" : ""}`}
-                  onClick={() => setActiveNav(item)}
-                >
-                  {item}
-                </Link>
-              );
-            }
-            if (item === "Top Sellers") {
-              return (
-                <Link
-                  key={index}
-                  to="/top-sellers"
-                  className={`navLink ${activeNav === item ? "active" : ""}`}
-                  onClick={() => setActiveNav(item)}
-                >
-                  {item}
-                </Link>
-              );
-            }
-            return (
+        <div className="nav">
+          {header.nav.map((item, index) =>
+            item === "Blog" ? (
+              <Link
+                key={index}
+                to="/blog"
+                className={`navLink ${activeNav === item ? "active" : ""}`}
+                onClick={() => setActiveNav(item)}
+              >
+                {item}
+              </Link>
+            ) : item === "Top Sellers" ? (
+              <Link
+                key={index}
+                to="/top-sellers"
+                className={`navLink ${activeNav === item ? "active" : ""}`}
+                onClick={() => setActiveNav(item)}
+              >
+                {item}
+              </Link>
+            ) : (
               <Link
                 key={index}
                 to="/"
@@ -85,34 +82,39 @@ export default function Home({
               >
                 {item}
               </Link>
-            );
-          })}
-        </nav>
-      </header>
+            )
+          )}
+        </div>
+      </div>
 
-      <section className="hero" style={{ backgroundImage: `url(${hero.bg})` }}>
-        <div className="container heroBody">
+      <div className="hero" style={{ backgroundImage: `url(${hero.bg})` }}>
+        <div className="container heroBox">
           <div className="heroMini">{hero.mini}</div>
           <div className="heroTitle">{hero.title}</div>
           <div className="heroDesc">{hero.desc}</div>
 
-          <div className="heroList">
+          <div className="heroBullets">
             {hero.bullets.map((item, index) => (
-              <div key={index} className="heroLi">• {item}</div>
+              <div key={index} className="heroBullet">
+                • {item}
+              </div>
             ))}
           </div>
 
           <div className="heroBtns">
             {hero.buttons.map((item, index) => (
-              <button key={index} className={`btn ${index === 0 ? "teal" : "ghost"}`}>
+              <button
+                key={index}
+                className={`btn ${index === 0 ? "teal" : "ghost"}`}
+              >
                 {item}
               </button>
             ))}
           </div>
         </div>
-      </section>
+      </div>
 
-      <section className="features">
+      <div className="features">
         <div className="container strip">
           {featureStrip.map((item, index) => (
             <div key={index} className={`stripItem ${item.theme}`}>
@@ -124,9 +126,9 @@ export default function Home({
             </div>
           ))}
         </div>
-      </section>
+      </div>
 
-      <section className="section">
+      <div className="section">
         <div className="container">
           <div className="secTop">
             <div className="secTitle">{flashSale.title}</div>
@@ -151,9 +153,9 @@ export default function Home({
             ))}
           </div>
         </div>
-      </section>
+      </div>
 
-      <section className="section light">
+      <div className="section light">
         <div className="container">
           <div className="secTop">
             <div className="secTitle">{categories.title}</div>
@@ -165,7 +167,9 @@ export default function Home({
                 <div className="catTitle">{item.name}</div>
                 <div className="catList">
                   {item.items.map((it, i) => (
-                    <div key={i} className="catLi">{it}</div>
+                    <div key={i} className="catLi">
+                      {it}
+                    </div>
                   ))}
                 </div>
                 <div className="catLink">{item.link}</div>
@@ -173,9 +177,9 @@ export default function Home({
             ))}
           </div>
         </div>
-      </section>
+      </div>
 
-      <section className="section">
+      <div className="section">
         <div className="container">
           <div className="secTop">
             <div className="secTitle">{newArrivals.title}</div>
@@ -200,13 +204,15 @@ export default function Home({
             ))}
           </div>
         </div>
-      </section>
+      </div>
 
-      <section className="section">
+      <div className="section">
         <div className="container">
           <div className="secTop">
             <div className="secTitle">{bestSellers.title}</div>
-            <Link className="miniLink" to="/top-sellers">View all</Link>
+            <Link className="miniLink" to="/top-sellers">
+              View all
+            </Link>
           </div>
 
           <div className="grid grid4">
@@ -228,9 +234,9 @@ export default function Home({
             ))}
           </div>
         </div>
-      </section>
+      </div>
 
-      <footer className="footer">
+      <div className="footer">
         <div className="container footerRow">
           <div className="footerLeft">
             <div className="footerBrand">{footer.brand}</div>
@@ -255,7 +261,9 @@ export default function Home({
               <div key={index} className="footerCol">
                 <div className="footerTitle">{col.title}</div>
                 {col.links.map((link, i) => (
-                  <a key={i} className="footerLink" href="#">{link}</a>
+                  <a key={i} className="footerLink" href="#">
+                    {link}
+                  </a>
                 ))}
               </div>
             ))}
@@ -265,7 +273,7 @@ export default function Home({
         <div className="container footerBottom">
           <div className="footerCopy">{footer.copy}</div>
         </div>
-      </footer>
+      </div>
     </div>
   );
 }
