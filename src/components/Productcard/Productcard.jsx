@@ -1,4 +1,4 @@
-import React from "react";
+import "./Productcard.css";
 
 const Productcard = ({ item }) => {
   return (

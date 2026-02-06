@@ -1,5 +1,5 @@
-import React from "react";
-import ProductCard from "./ProductCard.jsx";
+import "./Product.css";
+import Productcard from "../Productcard/Productcard";
 
 const Product = ({ title, items, cols }) => {
   return (
@@ -11,7 +11,7 @@ const Product = ({ title, items, cols }) => {
 
         <div className={`grid ${cols === 3 ? "grid3" : "grid4"}`}>
           {items.map((item, index) => (
-            <ProductCard key={index} item={item} />
+            <Productcard key={index} item={item} />
           ))}
         </div>
       </div>

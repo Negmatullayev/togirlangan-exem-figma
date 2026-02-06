@@ -1,4 +1,4 @@
-import React from "react";
+import "./BlogSection.css";
 
 const BlogSection = ({ title, posts }) => {
   return (

@@ -1,4 +1,4 @@
-import React from "react";
+import "./Hero.css";
 
 const Hero = ({ mini, titleLines, desc, bullets, buttons, bg }) => {
   return (

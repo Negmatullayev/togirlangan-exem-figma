@@ -1,10 +1,13 @@
-import React from "react";
+import { NavLink } from "react-router-dom";
+import "./Header.css";
 
-const Header = ({ brand, categories, nav, icons, activeNav, setActiveNav }) => {
+const Header = ({ brand, categories, nav, icons, mobileOpen, setMobileOpen }) => {
   return (
     <div className="header">
       <div className="container headerRow">
-        <div className="brand">{brand}</div>
+        <NavLink to="/" className="brand">
+          {brand}
+        </NavLink>
 
         <div className="searchBox">
           <button className="catBtn">{categories} ▾</button>
@@ -13,6 +16,9 @@ const Header = ({ brand, categories, nav, icons, activeNav, setActiveNav }) => {
         </div>
 
         <div className="icons">
+          <button className="burger" onClick={() => setMobileOpen(!mobileOpen)}>
+            ☰
+          </button>
           {icons.map((item, index) => (
             <button key={index} className="iconBtn">
               <img src={item.url} alt={item.label} />
@@ -21,15 +27,17 @@ const Header = ({ brand, categories, nav, icons, activeNav, setActiveNav }) => {
         </div>
       </div>
 
-      <div className="nav">
+      <div className={`nav ${mobileOpen ? "open" : ""}`}>
         {nav.map((item, index) => (
-          <button
+          <NavLink
             key={index}
-            className={`navLink ${activeNav === index ? "active" : ""}`}
-            onClick={() => setActiveNav(index)}
+            to={item.to}
+            end={item.to === "/"}
+            className={({ isActive }) => `navLink ${isActive ? "active" : ""}`}
+            onClick={() => setMobileOpen(false)}
           >
-            {item}
-          </button>
+            {item.label}
+          </NavLink>
         ))}
       </div>
     </div>

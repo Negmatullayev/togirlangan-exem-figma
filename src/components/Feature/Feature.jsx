@@ -1,4 +1,4 @@
-import React from "react";
+import "./Feature.css";
 
 const Feature = ({ items }) => {
   return (

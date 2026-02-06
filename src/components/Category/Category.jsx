@@ -1,4 +1,4 @@
-import React from "react";
+import "./Category.css";
 
 const Category = ({ title, cards }) => {
   return (
